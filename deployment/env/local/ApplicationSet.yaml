@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argocd-playground
+spec:
+  generators:
+  - list:
+      elements:
+        - name: hello-world
+          namespace: default
+
+  template:
+    metadata:
+      name: nylas-parser-staging
+    spec:
+      project: default
+      source:
+        repoURL: 'git@github.com:nylas/unicorn-helm.git'
+        path: chart
+        targetRevision: main
+        helm:
+          valueFiles:
+            - ../deployment/env/local/{{name}}.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'default'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true

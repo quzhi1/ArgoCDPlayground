@@ -1,0 +1,4 @@
+name: hello-world
+description: Example application for hello-world
+version: 0.0.1
+apiVersion: v1

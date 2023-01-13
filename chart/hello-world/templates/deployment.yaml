@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: hello-world
-          image: "hello-world:20230112173314"
+          image: "hello-world:nanoserver-ltsc2022"
           imagePullPolicy: IfNotPresent
           resources:
             limits:

@@ -29,21 +29,3 @@ local_resource(
   resource_deps=['argocd'],
   labels='argocd',
 )
-
-#################### Build hello world service image ##################
-
-local_resource(
-  'hello-world-compile',
-  compile_opt + 'go build -o bin/hello-world hello-world/main.go',
-  deps=['hello-world'],
-  ignore=['bin'],
-  labels="hello-world",
-)
-
-local_resource(
-  'hello-world-docker',
-  'docker build . -t hello-world:$(date +%Y%m%d%H%M%S) -f hello-world/Dockerfile',
-  resource_deps=['hello-world-compile'],
-  deps=['bin/hello-world'],
-  labels="hello-world",
-)
